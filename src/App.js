@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Input from "./form-field/Input"
 import "./index.css";
 
+
 function App(){
   const [values, setValues ] = useState({
     username: "",
@@ -10,7 +11,7 @@ function App(){
     confirmPassword: ""
 
   })
-  
+  const [submitted, setSubmitted] = useState(false)
 
 
   const formField = [
@@ -70,14 +71,21 @@ function App(){
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    setTimeout(() => {
+      setSubmitted(true);
+    }, 1000); 
   }
+  
 
-  return <form>
+
+  return <form onSubmit={handleSubmit}>
     {formField.map(field => (
       <Input key={field.id} {...field} onChange={onChange} value={values[field.name]} />
     ))}
-    <button className='button'>Submit</button>
+    <button className='button' >Submit</button>
   </form>
+  {submitted && <p className='message'>submitted Successfully</p>}
 }
 
 export default App
